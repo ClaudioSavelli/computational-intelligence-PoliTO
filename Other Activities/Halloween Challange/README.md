@@ -1,7 +1,4 @@
-# Disclaimer
-The notebook regarding the implementation and the presentation of our methodology is **not ready yet**. In the following you can find our results.
-
----
+Halloween Challenge done with [Mattia Sabato](https://github.com/Mattizza)!
 
 ## EXPERIMENTAL RESULTS: OUR METHOD VS BASELINE/BENCHMARK
 
