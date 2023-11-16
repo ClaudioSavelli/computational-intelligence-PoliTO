@@ -1,4 +1,4 @@
-Lab2 done with [Luca Catalano](https://github.com/LucaCatalano13)!
+Lab2 done with [Claudio Savelli](https://github.com/ClaudioSavelli)!
 
 # Task
 
@@ -108,9 +108,14 @@ Three different combinations of methods were tested:
 
 | Montecarlo | Winrate |
 |-----------|-------|
-| ES1 | 0.  |
-| ES2 | 0.  |
-| ES3 | 0.  |
+| ES1 | 0.05 |
+| ES2 | 0.06 |
+| ES3 | 0.15 |
 
 
 # Conclusions
+The outcomes detail the implementation of diverse approaches in the game of Nim. Evolutionary strategies, denoted as ES1, ES2, and ES3, were employed with varying combinations of move selection methods. Notably, ES3, which integrates an expert_system, falls short of achieving the optimal strategy outlined in task 2.1 and lags behind the effectiveness demonstrated by the Monte Carlo strategy.
+
+The Monte Carlo Strategy stands out for its remarkable performance, consistently attaining high win rates across all scenarios. Its superiority is evident as it consistently outperforms both casual play and specific strategies such as Gabriel and Optimal. This underscores the strategy's efficacy in navigating the intricacies of the Nim game.
+
+The final experiment highlights the near-universal success of the Monte Carlo strategy when pitted against the Evolutionary Strategy. This further emphasizes the potency of the Monte Carlo approach in outperforming alternative strategies, including those driven by evolutionary algorithms.
