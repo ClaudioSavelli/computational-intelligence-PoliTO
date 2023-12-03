@@ -1,4 +1,4 @@
-# Lab09 done with [Claudio Savelli](https://github.com/ClaudioSavelli/computational-intelligence-PoliTO/tree/main/Laboratory%20Activities/Lab3), [Florentin Udrea](https://github.com/florentin1304/computational-intelligence/tree/main/Laboratories/Lab9)!
+# Lab09 done with [Luca Catalano](https://github.com/LucaCatalano13), [Florentin Udrea](https://github.com/florentin1304)!
 
 HYPERPARAMETER
 ===
