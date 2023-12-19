@@ -7,6 +7,7 @@ from tqdm.auto import tqdm
 import numpy as np
 
 MAGIC = [2, 7, 6, 9, 5, 1, 4, 3, 8]
+
 State = namedtuple('State', ['x', 'o'])
 
 def print_board(pos):
@@ -70,9 +71,7 @@ def agent_move(state: State, value_dictionary, player='x', trick=False):
     for move in legal_moves:
         next_state = State(state.x | {move} if player == 'x' else state.x, state.o | {move} if player == 'o' else state.o)
         next_hashable_state = (frozenset(next_state.x), frozenset(next_state.o))
-        if next_hashable_state not in value_dictionary:
-            print('Unknown state for move: ', next_hashable_state)
-        elif value_dictionary[next_hashable_state] > best_value or (value_dictionary[next_hashable_state] < best_value and player == 'o' and trick):
+        if value_dictionary[next_hashable_state] > best_value or (value_dictionary[next_hashable_state] < best_value and player == 'o' and trick):
             best_move = move
             best_value = value_dictionary[next_hashable_state]
         
@@ -228,9 +227,7 @@ def complete_agent_move(state: State, complete_value_dictionary, player = 'x'):
     for move in legal_moves:
         next_state = State(state.x | {move} if player == 'x' else state.x, state.o | {move} if player == 'o' else state.o)
         next_hashable_state = (frozenset(next_state.x), frozenset(next_state.o))
-        if next_hashable_state not in value_dictionary:
-            print('Unknown state for move: ', next_hashable_state)
-        elif value_dictionary[next_hashable_state] > best_value:
+        if value_dictionary[next_hashable_state] > best_value:
             best_move = move
             best_value = value_dictionary[next_hashable_state]
         
