@@ -6,9 +6,51 @@ from copy import deepcopy
 from tqdm.auto import tqdm
 import numpy as np
 
-MAGIC = [2, 7, 6, 9, 5, 1, 4, 3, 8]
+MAGIC = [[2, 7, 6], [9, 5, 1], [4, 3, 8]]
+
+# rotate clockwise the 3x3 matrix
+def rotate_clockwise(matrix):
+    return list(zip(*matrix[::-1]))
+
+# rotate counter clockwise the 3x3 matrix
+def rotate_counter_clockwise(matrix):
+    return list(zip(*matrix))[::-1]
+
+# rotate the 3x3 matrix 180 degrees
+def rotate_180(matrix):
+    return rotate_clockwise(rotate_clockwise(matrix))
+
+a = rotate_clockwise(MAGIC)
+b = rotate_counter_clockwise(MAGIC)
+c = rotate_180(MAGIC)
+
+# 3x3 list to 1x9 list
+
+def flatten(matrix):
+    return [item for row in matrix for item in row]
+
+MAGIC = flatten(MAGIC)
+MAGIC_A = flatten(a)
+MAGIC_B = flatten(b)
+MAGIC_C = flatten(c)
+
+transformations = [MAGIC_A, MAGIC_B, MAGIC_C]
 
 State = namedtuple('State', ['x', 'o'])
+
+def convert_set(state_set, transformation):
+    return set([transformation[MAGIC.index(i)] for i in state_set])
+
+def convert_state(state, transformation):
+    new_state = State(convert_set(state.x, transformation), convert_set(state.o, transformation))
+    return new_state
+
+def convert_trajectory(trajectory):
+    res = [deepcopy(trajectory)]
+    for transformation in transformations:
+        transformed = [convert_state(state, transformation) for state in trajectory]
+        res.append(transformed)
+    return res
 
 def print_board(pos):
     """Nicely prints the board"""
@@ -158,19 +200,50 @@ def complete_train_loop(epsilon, training_steps):
     for steps in tqdm(range(training_steps)):
         trajectory = random_game()
         final_reward = state_value(trajectory[-1])
-        for state in trajectory:
+        for i, state in enumerate(trajectory):
             hashable_state = (frozenset(state.x), frozenset(state.o))
             hit_state[hashable_state] += 1
 
             # X
-            value_dictionary_X[hashable_state] = value_dictionary_X[
-                hashable_state
-            ] + epsilon * (final_reward - value_dictionary_X[hashable_state])
+            if i % 2 == 0: # X turn
+                value_dictionary_X[hashable_state] = value_dictionary_X[
+                    hashable_state
+                ] + epsilon * (final_reward - value_dictionary_X[hashable_state])
 
             # O
-            value_dictionary_O[hashable_state] = value_dictionary_O[
-                hashable_state
-            ] + epsilon * (-final_reward - value_dictionary_O[hashable_state])
+            else: # O turn
+                value_dictionary_O[hashable_state] = value_dictionary_O[
+                    hashable_state
+                ] + epsilon * (-final_reward - value_dictionary_O[hashable_state])
+
+    complete_value_dictionary = {"x": value_dictionary_X, "o": value_dictionary_O}
+    return complete_value_dictionary, hit_state
+
+def complete_mt_train_loop(epsilon, training_steps):
+    value_dictionary_X = defaultdict(float)
+    value_dictionary_O = defaultdict(float)
+    hit_state = defaultdict(int)
+
+    for steps in tqdm(range(training_steps)):
+        trajectory = random_game()
+        final_reward = state_value(trajectory[-1])
+        trajectories = convert_trajectory(trajectory=trajectory)
+        for t in trajectories: 
+            for i, state in enumerate(t):
+                hashable_state = (frozenset(state.x), frozenset(state.o))
+                hit_state[hashable_state] += 1
+
+                # X
+                if i % 2 == 0: # X turn
+                    value_dictionary_X[hashable_state] = value_dictionary_X[
+                        hashable_state
+                    ] + epsilon * (final_reward - value_dictionary_X[hashable_state])
+
+                # O
+                else: # O turn
+                    value_dictionary_O[hashable_state] = value_dictionary_O[
+                        hashable_state
+                    ] + epsilon * (-final_reward - value_dictionary_O[hashable_state])
 
     complete_value_dictionary = {"x": value_dictionary_X, "o": value_dictionary_O}
     return complete_value_dictionary, hit_state
