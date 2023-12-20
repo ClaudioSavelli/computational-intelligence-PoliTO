@@ -10,9 +10,9 @@ All proposed solutions are based on a Reinforcement Learning training strategy b
 
 In order to have a baseline, I started from the code proposed in the classroom and simply added a method to select, from each state $T$, the action that would lead to the best possible state $T+1$. In the proposed method, after evaluating each game, all states that have been traversed during the game are updated according to the following equation:
 
-$V_{\pi}(s) = V_{\pi}(s) + \epsilon * (Reward - V_{\pi}(s))$
+$V(s) = V(s) + \epsilon * (Reward - V(s))$
 
-Where $V_{\pi}(s)$ is the value of the state $s$ according to the policy $\pi$, $\epsilon$ is the learning rate and $Reward$ is the reward obtained at the end of the game, in particular $Reward = 1$ if the game is won, $Reward = 0$ if the game is drawn and $Reward = -1$ if the game is lost.
+Where $V(s)$ is the value of the state $s$, $\epsilon$ is the learning rate and $Reward$ is the reward obtained at the end of the game, in particular $Reward = 1$ if the game is won, $Reward = 0$ if the game is drawn and $Reward = -1$ if the game is lost.
 
 Only the state is considered here since the possible actions of a player from each state are extremely small in number, which is why it is possible to test all moves and assess which of the newly generated states is the most advantageous. 
 
@@ -22,7 +22,7 @@ The developed code, however, only considers matches from the point of view of pl
 
 For the reasons listed at the end of *Basic Problem*, two improvements have been proposed. The first relates to the division of states between those the agent will play if he starts first and those he will play if he starts as second. From this division it is also possible to modify the $Reward$ so that it is accurate whether the player starts first or second. Therefore for the states relating to the first player the same equation as proposed in *Basic Problem* will be used, whereas in the case of considering player 2 the equation will change as follows:
 
-$V_{\pi}(s) = V_{\pi}(s) + \epsilon * (-Reward - V_{\pi}(s))$
+$V(s) = V(s) + \epsilon * (-Reward - V(s))$
 
 In view of the excellent accuracy achieved with the following method, it was not considered necessary to improve the training, but rather to investigate how to achieve the desired level of accuracy by minimising the number of training steps.
 
