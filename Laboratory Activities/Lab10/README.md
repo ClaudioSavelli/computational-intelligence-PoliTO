@@ -108,9 +108,17 @@ The results obtained with this method are extremely satisfying. In fact, it is p
 
 In the following pictures, it can be seen that the method proposed in *Multiple Projections Optimisation* achieves better results in less time than the method proposed in *Generalisation of the problem also on O*.
 
-In particular, the first picture shows the results obtained by the method *Generalisation of the problem also on O* with a different number of *Training Steps*. The graph on the left shows the results obtained when the agent was the first player, while the right-hand side shows the results obtained when the agent was the second player. The second picture shows, following the same order, the results obtained by the *Multiple Projections Optimisation* method.
+### Generalisation of the problem also on O
 
-![ar](./images/ar+ra.png "Generalisation of the problem also on O results") ![Wins](./images/armt+ramt.png "Multiple Projections Optimisation results")
+The graph shows the change in the percentage of wins, draws, and losses obtained as the number of *Training Steps* changes. The graph on the left shows the results obtained when the agent was the first player, while the graph on the right shows the results obtained when the agent was the second player.
+
+![ar](./images/ar+ra.png "Generalisation of the problem also on O results") 
+
+### Multiple Projections Optimisation
+
+The graph shows the change in the percentage of wins, draws, and losses obtained as the number of *Training Steps* changes. The graph on the left shows the results obtained when the agent was the first player, while the graph on the right shows the results obtained when the agent was the second player.
+
+![Wins](./images/armt+ramt.png "Multiple Projections Optimisation results")
 
 # Conclusions
 The results obtained in terms of matches won are extremely satisfying. The pipeline followed to first maximise the generalisation of the agent and then the speed of training through reinforcement learning also led to the desired results. Certainly, the method developed is not reproducible for problems that have a very large solution space, or where the action may lead to a non-deterministic state.  
